@@ -1,0 +1,71 @@
+﻿<?xml version="1.0"?>
+<doc>
+	<assembly>
+		<name>System.Drawing</name>
+	</assembly>
+	<members>
+		<member name="T:System.Drawing.Color">
+			<summary>Representation of RGBA colors.</summary>
+		</member>
+		<member name="T:System.Drawing.FontStyle">
+			<summary>Font Style applied to GUI Texts, Text Meshes or GUIStyles.</summary>
+		</member>
+		<member name="T:System.Drawing.Drawing2D.WrapMode">
+			<summary>Determines how time is treated outside of the keyframed range of an AnimationClip or AnimationCurve.</summary>
+		</member>
+		<member name="T:System.Drawing.Font">
+			<summary>Script interface for font assets.</summary>
+		</member>
+		<member name="T:System.Drawing.Rect">
+			<summary>A 2D Rectangle defined by X and Y position, width and height.</summary>
+		</member>
+		<member name="F:System.Drawing.Rect.size">
+			<summary>The width and height of the rectangle.</summary>
+		</member>
+		<member name="P:System.Drawing.Color.A">
+			<summary>Alpha component of the color.</summary>
+		</member>
+		<member name="P:System.Drawing.Color.R">
+			<summary>Red component of the color.</summary>
+		</member>
+		<member name="P:System.Drawing.Color.G">
+			<summary>Green component of the color.</summary>
+		</member>
+		<member name="T:System.Drawing.Graphics">
+			<summary>Raw interface to Unity's drawing functions.</summary>
+		</member>
+		<member name="P:System.Drawing.Color.B">
+			<summary>Blue component of the color.</summary>
+		</member>
+		<member name="P:System.Drawing.Color.Black">
+			<summary>Solid black. RGBA is (0, 0, 0, 1).</summary>
+		</member>
+		<member name="P:System.Drawing.Color.Blue">
+			<summary>Solid blue. RGBA is (0, 0, 1, 1).</summary>
+		</member>
+		<member name="P:System.Drawing.Color.Cyan">
+			<summary>Cyan. RGBA is (0, 1, 1, 1).</summary>
+		</member>
+		<member name="P:System.Drawing.Color.Gray">
+			<summary>Gray. RGBA is (0.5, 0.5, 0.5, 1).</summary>
+		</member>
+		<member name="P:System.Drawing.Color.Green">
+			<summary>Solid green. RGBA is (0, 1, 0, 1).</summary>
+		</member>
+		<member name="P:System.Drawing.Color.Magenta">
+			<summary>Magenta. RGBA is (1, 0, 1, 1).</summary>
+		</member>
+		<member name="P:System.Drawing.Color.Red">
+			<summary>Solid red. RGBA is (1, 0, 0, 1).</summary>
+		</member>
+		<member name="P:System.Drawing.Color.White">
+			<summary>Solid white. RGBA is (1, 1, 1, 1).</summary>
+		</member>
+		<member name="P:System.Drawing.Color.Yellow">
+			<summary>Yellow. RGBA is (1, 0.92, 0.016, 1), but the color is nice to look at!</summary>
+		</member>
+		<member name="M:System.Drawing.Color.ToString()">
+			<summary>Returns a nicely formatted string of this color.</summary>
+		</member>
+	</members>
+</doc>
