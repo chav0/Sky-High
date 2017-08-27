@@ -171,13 +171,10 @@ public class Astar
 
 public class PlayerController : MonoBehaviour
 {
-    public List<GameObject> bombs;
-    public List<GameObject> cubes;
     private List<Point> path = null;
     private int current_position_in_path = 1;
     public static int player_hp; 
 
-    // Use this for initialization
     void Start()
     {
         player_hp = Settings._player_hp; 
@@ -190,8 +187,7 @@ public class PlayerController : MonoBehaviour
         return 1; 
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (Target._new)
         {
@@ -215,12 +211,9 @@ public class PlayerController : MonoBehaviour
         if (path != null && Target._target != new Point(-1, -1) && current_position_in_path <= path.Count - 1)
         {
             var heading = new Vector2((int)Mathf.Round(path[current_position_in_path].X * 10.0f - transform.position.x), (int)Mathf.Round(path[current_position_in_path].Y * 10.0f - transform.position.z)); 
-            if (heading.magnitude >= 2.0f)
+            if (heading.magnitude >= 0.01f)
             {
-                Debug.Log("After: " + transform.position.x.ToString() + ", " + transform.position.z.ToString());
-                Debug.Log("Point: " + Mathf.Sign(heading.x).ToString() + ", " + Mathf.Sign(heading.y).ToString()); 
                 transform.position = transform.position + new Vector3(normalize((int)Mathf.Round(heading.x)), 0, normalize((int)Mathf.Round(heading.y))) * Time.deltaTime*40;
-                Debug.Log("Post: " + transform.position.x.ToString() + ", " + transform.position.z.ToString());
                 if (path != null && current_position_in_path == path.Count - 1 && heading.magnitude <= 0.1f)
                 {
                     path = null;
@@ -229,90 +222,11 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                transform.position = new Vector3(path[current_position_in_path].X * 10.0f, 0, path[current_position_in_path].Y * 10.0f);
-                current_position_in_path++;
-                
+                    transform.position = new Vector3(path[current_position_in_path].X * 10.0f, 0, path[current_position_in_path].Y * 10.0f);
+                    current_position_in_path++;
             }
 
-        }
-
-        int bomb = 0;
-        bool boom = false; 
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            bomb = 0;
-            boom = true; 
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            bomb = 1;
-            boom = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            bomb = 2;
-            boom = true;
-        }
-
-
-
-        if (boom)
-        {
-            Point p = new Point((int)Mathf.Round(transform.position.x / 10.0f), (int)Mathf.Round(transform.position.z / 10.0f)); 
-            GameObject active_bomb = Instantiate(bombs[bomb], new Vector3(p.X * 10.0f, 0, p.Y * 10.0f), Quaternion.identity);
-            CellGenerator.levelGrid[p.X][p.Y].GetComponent<Cube>()._color = 4; 
-            Destroy(active_bomb, 3.0f); 
-            if (p.X < CellGenerator.levelGrid.Length - 1 && CellGenerator.levelGrid[p.X + 1][p.Y].GetComponent<Cube>()._color != 0 && CellGenerator.levelGrid[p.X + 1][p.Y].GetComponent<Cube>()._color != 4)
-            {
-                StartCoroutine(initForSeconds(p.X + 1, p.Y, bomb));
-            }
-            if (p.X > 0 && CellGenerator.levelGrid[p.X - 1][p.Y].GetComponent<Cube>()._color != 0 && CellGenerator.levelGrid[p.X - 1][p.Y].GetComponent<Cube>()._color != 4)
-            {
-                StartCoroutine(initForSeconds(p.X - 1, p.Y, bomb));
-            }
-            if (p.Y < CellGenerator.levelGrid[0].Length - 1 && CellGenerator.levelGrid[p.X][p.Y + 1].GetComponent<Cube>()._color != 0 && CellGenerator.levelGrid[p.X][p.Y + 1].GetComponent<Cube>()._color != 4)
-            {
-                StartCoroutine(initForSeconds(p.X, p.Y + 1, bomb));
-            }
-            if (p.Y > 0 && CellGenerator.levelGrid[p.X][p.Y - 1].GetComponent<Cube>()._color != 0 && CellGenerator.levelGrid[p.X][p.Y - 1].GetComponent<Cube>()._color != 4)
-            {
-                StartCoroutine(initForSeconds(p.X, p.Y - 1, bomb));
-            }
-
-            StartCoroutine(BoomBomb(p.X, p.Y)); 
+            //transform.position = Vector3.Lerp(path[current_position_in_path-1], path[current_position_in_path], Time.deltaTime * 40.0f);
         }
     }
-    IEnumerator initForSeconds(int i, int j, int bomb)
-    {
-        CellGenerator.levelGrid[i][j].GetComponent<Cube>()._hp -= Settings._bombs_dp[bomb];
-        int new_cell = CellGenerator.levelGrid[i][j].GetComponent<Cube>()._hp;
-        if (new_cell < 0) new_cell = 0;
-        // Удаление существующей клетки 
-
-        yield return new WaitForSeconds(3.0f);
-		Destroy(CellGenerator.levelGrid[i][j]);
-        // Появление на ее месте обычной белой клетки
-        CellGenerator.levelGrid[i][j] = Instantiate(cubes[new_cell], new Vector3(i * 10.0f, 0, j * 10.0f), Quaternion.identity);
-        CellGenerator.levelGrid[i][j].GetComponent<Cube>()._color = new_cell;
-        CellGenerator.levelGrid[i][j].GetComponent<Cube>()._hp = Settings._cubes_hp[new_cell];
-        CellGenerator.levelGrid[i][j].GetComponent<Cube>()._pos = new Point(i, j);
-
-        // Наносим урон игроку 
-        Point b = new Point(i, j); 
-        Point p = new Point((int)Mathf.Round(transform.position.x / 10.0f), (int)Mathf.Round(transform.position.z / 10.0f));
-        if (b == p)
-        {
-            player_hp -= Settings._bombs_dp[bomb];
-        }
-    }
-
-    IEnumerator BoomBomb(int i, int j)
-    {
-        yield return new WaitForSeconds(3.0f);
-        CellGenerator.levelGrid[i][j].GetComponent<Cube>()._color = 0;
-    }
-
 }

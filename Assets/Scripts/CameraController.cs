@@ -44,7 +44,8 @@ public class CameraController : MonoBehaviour {
         normal_cam_pos_local = new Vector3(x_pos, 0.0f, z_pos);
         cam.transform.localPosition = normal_cam_pos_local;
         cam.orthographicSize = normal_size; 
-        normal_cam_pos = cam.transform.position; 
+        normal_cam_pos = cam.transform.position;
+
     }
 	
 	// Update is called once per frame
@@ -59,5 +60,7 @@ public class CameraController : MonoBehaviour {
             cam.transform.position = player.transform.position + offset;
             cam.orthographicSize = normal_size;
         }
+
+
     }
 }

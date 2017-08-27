@@ -13,6 +13,7 @@ TagManager:
   - UI
   - 
   - 
+  - Cubes
   - 
   - 
   - 
@@ -35,8 +36,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - NativeUI
   m_SortingLayers:
   - name: Default
     uniqueID: 0

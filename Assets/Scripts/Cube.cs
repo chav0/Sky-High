@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Cube : MonoBehaviour {
 
@@ -18,7 +19,7 @@ public class Cube : MonoBehaviour {
     void OnMouseDown()
     {
         Vector3 pos = transform.position;
-        if (_color == 0)
+        if (_color == 0 && !EventSystem.current.IsPointerOverGameObject())
         {
             Target._target = _pos;
             Debug.Log(Target._target.X.ToString() + ", " + Target._target.Y.ToString());
