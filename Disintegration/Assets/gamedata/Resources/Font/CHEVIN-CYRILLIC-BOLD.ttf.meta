@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 7c28bda58481ff74ca7eae7048439096
+timeCreated: 1517060171
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Chevin Cyrillic
+  fontNames:
+  - Chevin Cyrillic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
